@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/campaigns")
@@ -15,12 +16,17 @@ public class CampaignController {
     private CampaignService campaignService;
 
     @PostMapping
-    public Message sendMessage(@RequestBody Message message) {
+    public String sendMessage(@RequestBody Message message) {
         return campaignService.sendMessage(message);
     }
 
     @GetMapping
     public List<Message> getAllMessages() {
         return campaignService.getAllMessages();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Message> getMessageById(@PathVariable Long id) {
+        return campaignService.getMessageById(id);
     }
 }
